@@ -20,11 +20,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'xpgkkw_g&fcaop$(j$$15jisz$6g&et-h@aa*b^dt$rh71ry(_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = []
+
+if not DEBUG:
+	ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -36,7 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ups_status',
+    'status',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -52,17 +55,6 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'infra_api.urls'
 
 WSGI_APPLICATION = 'infra_api.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -82,3 +74,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+TOR_CTRL_PORT = 9051
+TOR_CTRL_PASS = "changeme"
