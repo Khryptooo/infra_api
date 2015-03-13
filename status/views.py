@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.conf import settings
 from stem.control import Controller
-from hurry.filesize import size
+from hurry.filesize import size, alternative
 import json
 import PyNUT
 
@@ -31,8 +31,8 @@ def tor_status(request):
 	with Controller.from_port(port = TOR_CTRL_PORT) as controller:
 		controller.authenticate(TOR_CTRL_PASS)
 		alive         = controller.is_alive()
-		net_in        = size(int(controller.get_info("traffic/read")))
-		net_out       = size(int(controller.get_info("traffic/written")))
+		net_in        = size(int(controller.get_info("traffic/read")), system=alternative)
+		net_out       = size(int(controller.get_info("traffic/written")), system=alternative)
 		net_status    = controller.get_network_status()
 		flags         = json.dumps(net_status.flags)
 		published     = str(net_status.published)
